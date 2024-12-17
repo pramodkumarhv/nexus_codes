@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Prompt user for application name
+read -p "Enter the application name: " application
+
+# Check if application exists
+if [ -f "$application" ]; then
+  
+        dos2unix /workspaces/nexus_codes/nexus/versioncleanup/${application}versions.txt
+        # Read paths from the file
+        while read path
+        do 
+                cd "$path"
+                echo "Changing to folder $Path"
+                pwd >> "/workspaces/nexus_codes/nexus/versioncleanup/logs/Nexusdeletedlog_${application}.txt"
+
+                # Remove files listed in version_file
+                for i in `cat /workspaces/nexus_codes/nexus/versioncleanup/${application}versions.txt` ;
+                do
+                    echo rm -rfv $i >> /workspaces/nexus_codes/nexus/versioncleanup/logs/Nexusdeletedlog_${application}.txt
+                    rm -rfv "$i" >> "/workspaces/nexus_codes/nexus/versioncleanup/logs/Nexusdeletedlog_${application}.txt"
+                done
+        done < "$application"
+   
+else
+    echo "$application does not exist."
+fi
